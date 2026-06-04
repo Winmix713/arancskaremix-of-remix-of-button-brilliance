@@ -1,6 +1,6 @@
 import { usePlayground } from "@/lib/playground/context";
 import { SWATCHES } from "@/lib/playground/defaults";
-import { SectionHeader } from "../shared/SectionHeader";
+import { CollapsibleSection } from "../shared/CollapsibleSection";
 import { ControlRow } from "../shared/ControlRow";
 import { SegmentedControl } from "../shared/SegmentedControl";
 import { ColorInput } from "../shared/ColorInput";
@@ -11,8 +11,7 @@ export function ColorTheme() {
   const { swatch, customHex, textColorMode, textColorManual } = state.base;
 
   return (
-    <section className="border-b border-border-subtle pb-4">
-      <SectionHeader title="Color Theme" />
+    <CollapsibleSection title="Color Theme">
       <div className="grid grid-cols-9 gap-1.5 pt-1">
         {SWATCHES.map((sw) => (
           <button
@@ -88,6 +87,6 @@ export function ColorTheme() {
           </ControlRow>
         )}
       </div>
-    </section>
+    </CollapsibleSection>
   );
 }

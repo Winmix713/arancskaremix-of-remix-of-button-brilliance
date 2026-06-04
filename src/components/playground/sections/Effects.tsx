@@ -1,4 +1,5 @@
 import { usePlayground } from "@/lib/playground/context";
+import { CollapsibleSection } from "../shared/CollapsibleSection";
 import {
   Accordion,
   AccordionContent,
@@ -55,10 +56,7 @@ export function Effects() {
     dispatch({ type, patch: { enabled } } as Action);
 
   return (
-    <section className="pb-2">
-      <h3 className="font-head text-[11px] uppercase tracking-[0.18em] text-text-secondary pt-3 pb-1">
-        Effects
-      </h3>
+    <CollapsibleSection title="Effects" className="border-b-0">
       <Accordion type="multiple" className="w-full">
         <Row
           value="inner"
@@ -125,6 +123,6 @@ export function Effects() {
           <Noise />
         </Row>
       </Accordion>
-    </section>
+    </CollapsibleSection>
   );
 }
