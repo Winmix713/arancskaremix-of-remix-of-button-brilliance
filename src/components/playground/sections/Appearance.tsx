@@ -53,6 +53,6 @@ export function Appearance() {
           ]}
         />
       </ControlRow>
-    </section>
+    </CollapsibleSection>
   );
 }
