@@ -19,13 +19,13 @@ export function SegmentedControl<T extends string | number>({
         const opt = options.find((o) => String(o.value) === v);
         if (opt) onChange(opt.value);
       }}
-      className="w-full justify-stretch gap-0 rounded-md border border-border-subtle bg-surface-2 p-0.5"
+      className="w-full justify-stretch gap-1 rounded-lg border border-white/10 bg-white/5 p-1"
     >
       {options.map((opt) => (
         <ToggleGroupItem
           key={String(opt.value)}
           value={String(opt.value)}
-          className="flex-1 h-7 text-[11px] font-ui data-[state=on]:bg-surface-3 data-[state=on]:text-accent rounded-sm"
+          className="flex-1 h-8 text-xs font-semibold data-[state=on]:bg-accent/20 data-[state=on]:text-accent data-[state=on]:border data-[state=on]:border-accent/30 data-[state=off]:text-text-secondary data-[state=off]:hover:text-text-primary rounded-md transition-colors"
         >
           {opt.label}
         </ToggleGroupItem>

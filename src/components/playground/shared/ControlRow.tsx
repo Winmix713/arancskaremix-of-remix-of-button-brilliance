@@ -12,12 +12,12 @@ export function ControlRow({
   disabled?: boolean;
 }) {
   return (
-    <div className={"flex flex-col gap-1.5 py-1.5 " + (disabled ? "opacity-40 pointer-events-none" : "")}>
+    <div className={"flex flex-col gap-2 py-2 " + (disabled ? "opacity-40 pointer-events-none" : "")}>
       <div className="flex items-center justify-between">
-        <label className="text-[10px] uppercase tracking-[0.14em] text-text-muted font-ui">
+        <label className="text-xs font-semibold uppercase tracking-wider text-text-secondary">
           {label}
         </label>
-        {hint && <span className="text-[10px] text-text-muted font-ui">{hint}</span>}
+        {hint && <span className="text-xs text-text-muted font-mono">{hint}</span>}
       </div>
       {children}
     </div>

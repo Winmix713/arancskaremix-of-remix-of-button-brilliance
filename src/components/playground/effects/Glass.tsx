@@ -8,7 +8,7 @@ export function Glass() {
   const set = (patch: Partial<typeof s>) => dispatch({ type: "SET_GLASS", patch });
   const dim = !s.enabled;
   return (
-    <div className="space-y-1">
+    <div className="space-y-3">
       <ControlRow label="Light angle" disabled={dim} hint={`${s.angle}°`}>
         <NumericSlider value={s.angle} min={0} max={360} onChange={(angle) => set({ angle })} suffix="°" />
       </ControlRow>

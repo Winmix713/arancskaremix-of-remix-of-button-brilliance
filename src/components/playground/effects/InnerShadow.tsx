@@ -9,7 +9,7 @@ export function InnerShadow() {
   const set = (patch: Partial<typeof s>) => dispatch({ type: "SET_INNER_SHADOW", patch });
   const dim = !s.enabled;
   return (
-    <div className="space-y-1">
+    <div className="space-y-3">
       <div className="grid grid-cols-2 gap-3">
         <ControlRow label="X" disabled={dim}>
           <NumericSlider value={s.x} min={-20} max={20} onChange={(x) => set({ x })} suffix="px" />

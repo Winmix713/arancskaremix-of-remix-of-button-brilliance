@@ -12,7 +12,7 @@ export function ColorTheme() {
 
   return (
     <CollapsibleSection title="Color Theme">
-      <div className="grid grid-cols-9 gap-1.5 pt-1">
+      <div className="grid grid-cols-8 gap-2">
         {SWATCHES.map((sw) => (
           <button
             key={sw.name}
@@ -20,24 +20,28 @@ export function ColorTheme() {
             onClick={() =>
               dispatch({ type: "SET_BASE", patch: { swatch: sw.name, bgOklch: sw.oklch } })
             }
-            className={
-              "aspect-square rounded-md border transition-all " +
-              (swatch === sw.name
-                ? "border-accent ring-2 ring-accent-glow"
-                : "border-border-subtle hover:border-border-strong")
-            }
+            className={`
+              aspect-square rounded-lg border transition-all hover:scale-110
+              ${
+                swatch === sw.name
+                  ? "border-accent ring-2 ring-accent/30 shadow-lg shadow-accent/20"
+                  : "border-white/10 hover:border-white/20"
+              }
+            `}
             style={{ background: sw.oklch }}
           />
         ))}
         <button
           title="Custom"
           onClick={() => dispatch({ type: "SET_BASE", patch: { swatch: "Custom" } })}
-          className={
-            "aspect-square rounded-md border text-[10px] font-ui transition-all " +
-            (swatch === "Custom"
-              ? "border-accent ring-2 ring-accent-glow text-accent"
-              : "border-border-subtle hover:border-border-strong text-text-muted")
-          }
+          className={`
+            aspect-square rounded-lg border text-lg font-semibold transition-all hover:scale-110
+            ${
+              swatch === "Custom"
+                ? "border-accent ring-2 ring-accent/30 text-accent bg-accent/5"
+                : "border-white/10 hover:border-white/20 text-text-secondary"
+            }
+          `}
         >
           +
         </button>

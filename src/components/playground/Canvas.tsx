@@ -29,21 +29,34 @@ export function Canvas() {
     style = { ...style, outline: `2px solid ${derived.focusRing}`, outlineOffset: 3 };
   if (canvas.state === "disabled") style = { ...style, opacity: 0.4 };
 
+  // Premium background modes inspired by Apple marketing
   const canvasBg =
     canvas.bgMode === "checker"
       ? {
           backgroundImage:
-            "conic-gradient(from 0deg, oklch(20% 0.01 265) 0% 25%, oklch(13% 0.01 265) 25% 50%, oklch(20% 0.01 265) 50% 75%, oklch(13% 0.01 265) 75% 100%)",
+            "conic-gradient(from 0deg at 50% 50%, oklch(20% 0.01 265) 0% 25%, oklch(13% 0.01 265) 25% 50%, oklch(20% 0.01 265) 50% 75%, oklch(13% 0.01 265) 75% 100%)",
           backgroundSize: "24px 24px",
         }
       : canvas.bgMode === "dark"
-        ? { backgroundColor: "oklch(10% 0.01 265)" }
+        ? {
+            background: `
+              radial-gradient(900px 400px at 20% -5%, oklch(68% 0.19 252 / 0.12), transparent 50%),
+              radial-gradient(700px 500px at 100% 80%, oklch(70% 0.18 280 / 0.08), transparent 60%),
+              oklch(10% 0.01 265)
+            `,
+          }
         : canvas.bgMode === "light"
-          ? { backgroundColor: "oklch(96% 0 0)" }
+          ? {
+              background: `
+                radial-gradient(900px 600px at 15% 10%, oklch(68% 0.19 252 / 0.15), transparent 50%),
+                radial-gradient(700px 500px at 100% 90%, oklch(70% 0.18 320 / 0.1), transparent 60%),
+                oklch(96% 0 0)
+              `,
+            }
           : { backgroundColor: canvas.customBg };
 
   return (
-    <div className="flex flex-col bg-surface-0 h-full">
+    <div className="flex flex-col h-full bg-gradient-to-br from-canvas-light to-canvas-dark overflow-hidden">
       {/* SVG defs */}
       <svg width="0" height="0" style={{ position: "absolute" }} aria-hidden>
         <defs>
@@ -52,23 +65,32 @@ export function Canvas() {
         </defs>
       </svg>
 
-      <div
-        className="flex-1 flex items-center justify-center overflow-auto relative"
-        style={canvasBg}
-      >
-        {/* Floating state strip */}
-        <div className="pointer-events-none absolute top-3 left-1/2 -translate-x-1/2 z-10">
-          <div className="pointer-events-auto flex items-center gap-0.5 rounded-full border border-border-subtle bg-surface-1/80 backdrop-blur-md px-1 py-1 shadow-[0_4px_18px_-6px_rgba(0,0,0,0.6)]">
+      <div className="flex-1 flex items-center justify-center overflow-auto relative p-8">
+        {/* Animated background grid */}
+        <div
+          className="absolute inset-0 opacity-5"
+          style={{
+            backgroundImage:
+              "linear-gradient(90deg, currentColor 1px, transparent 1px), linear-gradient(currentColor 1px, transparent 1px)",
+            backgroundSize: "24px 24px",
+          }}
+        />
+
+        {/* State controls — floating top */}
+        <div className="pointer-events-none absolute top-6 left-1/2 -translate-x-1/2 z-20">
+          <div className="pointer-events-auto flex items-center gap-1 rounded-full border border-white/10 bg-black/20 backdrop-blur-lg px-2 py-1.5 shadow-xl">
             {STATES.map((s) => (
               <button
                 key={s}
                 onClick={() => dispatch({ type: "SET_CANVAS", patch: { state: s } })}
-                className={
-                  "px-2.5 h-6 rounded-full text-[9px] uppercase tracking-[0.16em] font-ui transition-colors " +
-                  (canvas.state === s
-                    ? "bg-accent text-accent-foreground"
-                    : "text-text-secondary hover:text-text-primary hover:bg-surface-3")
-                }
+                className={`
+                  px-3 h-7 rounded-lg text-xs font-semibold uppercase tracking-wide transition-all duration-150
+                  ${
+                    canvas.state === s
+                      ? "bg-accent text-white shadow-lg shadow-accent/30"
+                      : "text-white/60 hover:text-white/80 hover:bg-white/5"
+                  }
+                `}
               >
                 {s}
               </button>
@@ -76,10 +98,11 @@ export function Canvas() {
           </div>
         </div>
         <div
+          className="relative"
           style={{
             transform: `scale(${canvas.zoom / 100})`,
             transformOrigin: "center",
-            transition: "transform 180ms ease",
+            transition: "transform 180ms cubic-bezier(0.16, 1, 0.3, 1)",
           }}
         >
           <button
@@ -87,7 +110,7 @@ export function Canvas() {
             style={style}
             disabled={canvas.state === "disabled"}
             onDoubleClick={() => setEditingLabel(true)}
-            className="font-ui"
+            className="font-ui transition-all duration-150 hover:scale-105 active:scale-95"
           >
             {/* Texture overlay */}
             {derived.textureLayer && <span style={derived.textureLayer} aria-hidden />}
@@ -139,52 +162,62 @@ export function Canvas() {
         </div>
       </div>
 
-      {/* Bottom toolbar */}
-      <div className="border-t border-border-subtle bg-surface-1 px-3 py-2 flex flex-wrap items-center gap-3 text-[10px] font-ui uppercase tracking-[0.14em]">
-
-        <div className="flex items-center gap-1">
-          <span className="text-text-muted">Zoom</span>
-          {ZOOMS.map((z) => (
-            <button
-              key={z}
-              onClick={() => dispatch({ type: "SET_CANVAS", patch: { zoom: z } })}
-              className={
-                "px-2 h-6 rounded border transition-colors tabular-nums " +
-                (canvas.zoom === z
-                  ? "border-accent text-accent bg-surface-3"
-                  : "border-border-subtle text-text-secondary bg-surface-2 hover:bg-surface-3")
-              }
-            >
-              {z}%
-            </button>
-          ))}
+      {/* Bottom toolbar — minimal, premium */}
+      <div className="border-t border-white/5 bg-gradient-to-t from-black/20 to-black/5 backdrop-blur-sm px-6 py-4 flex flex-wrap items-center gap-6 text-xs font-semibold uppercase tracking-wider text-text-muted">
+        <div className="flex items-center gap-3">
+          <span>Zoom</span>
+          <div className="flex items-center gap-1.5">
+            {ZOOMS.map((z) => (
+              <button
+                key={z}
+                onClick={() => dispatch({ type: "SET_CANVAS", patch: { zoom: z } })}
+                className={`
+                  px-2.5 h-7 rounded-lg transition-all duration-150 font-mono text-xs font-bold
+                  ${
+                    canvas.zoom === z
+                      ? "bg-accent/20 text-accent border border-accent/30"
+                      : "text-text-secondary border border-white/5 hover:text-text-primary hover:bg-white/5"
+                  }
+                `}
+              >
+                {z}%
+              </button>
+            ))}
+          </div>
         </div>
-        <div className="flex items-center gap-1">
-          <span className="text-text-muted">BG</span>
-          {BG_MODES.map((m) => (
-            <button
-              key={m.value}
-              onClick={() => dispatch({ type: "SET_CANVAS", patch: { bgMode: m.value } })}
-              className={
-                "px-2 h-6 rounded border transition-colors " +
-                (canvas.bgMode === m.value
-                  ? "border-accent text-accent bg-surface-3"
-                  : "border-border-subtle text-text-secondary bg-surface-2 hover:bg-surface-3")
-              }
-            >
-              {m.label}
-            </button>
-          ))}
-          {canvas.bgMode === "custom" && (
-            <input
-              type="color"
-              value={canvas.customBg}
-              onChange={(e) =>
-                dispatch({ type: "SET_CANVAS", patch: { customBg: e.target.value } })
-              }
-              className="h-6 w-7 cursor-pointer rounded border border-border-subtle p-0.5 bg-surface-2"
-            />
-          )}
+
+        <div className="w-px h-5 bg-white/10" />
+
+        <div className="flex items-center gap-3">
+          <span>Background</span>
+          <div className="flex items-center gap-1.5">
+            {BG_MODES.map((m) => (
+              <button
+                key={m.value}
+                onClick={() => dispatch({ type: "SET_CANVAS", patch: { bgMode: m.value } })}
+                className={`
+                  px-2.5 h-7 rounded-lg transition-all duration-150 text-xs font-semibold
+                  ${
+                    canvas.bgMode === m.value
+                      ? "bg-accent/20 text-accent border border-accent/30"
+                      : "text-text-secondary border border-white/5 hover:text-text-primary hover:bg-white/5"
+                  }
+                `}
+              >
+                {m.label}
+              </button>
+            ))}
+            {canvas.bgMode === "custom" && (
+              <input
+                type="color"
+                value={canvas.customBg}
+                onChange={(e) =>
+                  dispatch({ type: "SET_CANVAS", patch: { customBg: e.target.value } })
+                }
+                className="h-7 w-10 cursor-pointer rounded-lg border border-white/10 p-1"
+              />
+            )}
+          </div>
         </div>
       </div>
     </div>

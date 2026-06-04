@@ -11,7 +11,7 @@ export function Noise() {
   const set = (patch: Partial<typeof s>) => dispatch({ type: "SET_NOISE", patch });
   const dim = !s.enabled;
   return (
-    <div className="space-y-1">
+    <div className="space-y-3">
       <ControlRow label="Type" disabled={dim}>
         <SegmentedControl<NoiseType>
           value={s.type}

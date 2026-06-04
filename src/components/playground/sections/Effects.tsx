@@ -31,9 +31,9 @@ function Row({
   children: ReactNode;
 }) {
   return (
-    <AccordionItem value={value} className="border-b border-border-subtle">
-      <div className="flex items-center justify-between gap-2 pr-1">
-        <AccordionTrigger className="flex-1 py-2.5 text-[11px] uppercase tracking-[0.16em] font-head text-text-primary hover:no-underline">
+    <AccordionItem value={value} className="border-b border-white/5">
+      <div className="flex items-center justify-between gap-2 px-2 py-2.5 rounded-lg hover:bg-white/5 transition-colors">
+        <AccordionTrigger className="flex-1 text-xs font-semibold uppercase tracking-widest text-text-primary hover:no-underline">
           {title}
         </AccordionTrigger>
         <Switch
@@ -44,7 +44,7 @@ function Row({
           onClick={(e) => e.stopPropagation()}
         />
       </div>
-      <AccordionContent className="pb-3 pt-1">{children}</AccordionContent>
+      <AccordionContent className="pb-3 px-2 pt-2">{children}</AccordionContent>
     </AccordionItem>
   );
 }

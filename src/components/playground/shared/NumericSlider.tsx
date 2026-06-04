@@ -17,7 +17,7 @@ export function NumericSlider({
   suffix?: string;
 }) {
   return (
-    <div className="flex items-center gap-3">
+    <div className="flex items-center gap-4">
       <Slider
         value={[value]}
         min={min}
@@ -26,7 +26,7 @@ export function NumericSlider({
         onValueChange={(v) => onChange(v[0])}
         className="flex-1"
       />
-      <div className="flex items-center gap-1 w-20">
+      <div className="flex items-center gap-1.5">
         <Input
           type="number"
           value={value}
@@ -34,9 +34,9 @@ export function NumericSlider({
           max={max}
           step={step}
           onChange={(e) => onChange(Number(e.target.value))}
-          className="h-7 px-1.5 text-[11px] font-ui text-right bg-surface-2 border-border-subtle"
+          className="h-8 w-16 px-2 text-xs font-mono font-semibold text-right bg-white/5 border-white/10 text-text-primary placeholder-text-muted rounded-lg"
         />
-        {suffix && <span className="text-[10px] text-text-muted font-ui">{suffix}</span>}
+        {suffix && <span className="text-xs text-text-muted font-mono font-semibold">{suffix}</span>}
       </div>
     </div>
   );
