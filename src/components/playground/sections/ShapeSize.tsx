@@ -95,6 +95,6 @@ export function ShapeSize() {
           suffix="px"
         />
       </ControlRow>
-    </section>
+    </CollapsibleSection>
   );
 }
