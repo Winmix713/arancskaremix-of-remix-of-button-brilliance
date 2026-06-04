@@ -24,7 +24,7 @@ export function CollapsibleSection({
         <h3 className="font-head text-[11px] uppercase tracking-[0.18em] text-text-secondary group-hover:text-text-primary transition-colors">
           {title}
         </h3>
-        <ChevronDown className="h-4 w-4 shrink-0 text-text-muted transition-transform duration-200 [&[data-state=open]>svg]:rotate-180" />
+        <ChevronDown className="h-4 w-4 shrink-0 text-text-muted transition-transform duration-200 group-data-[state=open]:rotate-180" />
       </CollapsibleTrigger>
       <CollapsibleContent className="overflow-hidden data-[state=closed]:animate-accordion-up data-[state=open]:animate-accordion-down">
         <div className="pt-1">{children}</div>
