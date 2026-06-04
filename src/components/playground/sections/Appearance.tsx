@@ -1,5 +1,5 @@
 import { usePlayground } from "@/lib/playground/context";
-import { SectionHeader } from "../shared/SectionHeader";
+import { CollapsibleSection } from "../shared/CollapsibleSection";
 import { ControlRow } from "../shared/ControlRow";
 import { SegmentedControl } from "../shared/SegmentedControl";
 import { ColorInput } from "../shared/ColorInput";
@@ -9,8 +9,7 @@ export function Appearance() {
   const b = state.base;
   const c = state.canvas;
   return (
-    <section className="border-b border-border-subtle pb-4">
-      <SectionHeader title="Appearance" />
+    <CollapsibleSection title="Appearance">
       <ControlRow label="Canvas">
         <SegmentedControl<"light" | "dark">
           value={c.appearance}
