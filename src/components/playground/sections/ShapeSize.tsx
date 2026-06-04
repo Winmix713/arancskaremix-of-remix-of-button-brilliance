@@ -1,5 +1,5 @@
 import { usePlayground } from "@/lib/playground/context";
-import { SectionHeader } from "../shared/SectionHeader";
+import { CollapsibleSection } from "../shared/CollapsibleSection";
 import { ControlRow } from "../shared/ControlRow";
 import { NumericSlider } from "../shared/NumericSlider";
 import { SegmentedControl } from "../shared/SegmentedControl";
@@ -10,8 +10,7 @@ export function ShapeSize() {
   const { state, dispatch } = usePlayground();
   const b = state.base;
   return (
-    <section className="border-b border-border-subtle pb-4">
-      <SectionHeader title="Shape & Size" />
+    <CollapsibleSection title="Shape & Size">
       <ControlRow label="Radius" hint={`${b.radius}px`}>
         <div className="grid grid-cols-4 gap-1">
           {RADIUS_PRESETS.map((r) => (
