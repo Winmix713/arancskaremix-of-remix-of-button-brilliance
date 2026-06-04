@@ -122,6 +122,6 @@ export function Effects() {
           <Noise />
         </Row>
       </Accordion>
-    </section>
+    </CollapsibleSection>
   );
 }
