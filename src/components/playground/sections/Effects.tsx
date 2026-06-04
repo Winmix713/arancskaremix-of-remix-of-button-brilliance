@@ -1,4 +1,5 @@
 import { usePlayground } from "@/lib/playground/context";
+import { CollapsibleSection } from "../shared/CollapsibleSection";
 import {
   Accordion,
   AccordionContent,
