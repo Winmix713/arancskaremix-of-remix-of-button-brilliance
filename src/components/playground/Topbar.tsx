@@ -49,26 +49,17 @@ export function Topbar({ onPresetsChange }: { onPresetsChange: () => void }) {
   };
 
   return (
-    <header className="flex items-center justify-between gap-3 border-b border-border-subtle px-4 h-14 shrink-0 bg-[linear-gradient(180deg,oklch(100%_0_0_/_3%),oklch(100%_0_0_/_0%))] backdrop-blur-xl supports-[backdrop-filter]:bg-surface-1/70">
-      <div className="flex items-center gap-3 min-w-0">
-        <div className="flex items-center gap-2.5">
-          <span
-            className="grid place-items-center size-7 rounded-[8px] text-white text-[13px] font-semibold shadow-[inset_0_1px_0_oklch(100%_0_0/25%),0_4px_14px_-4px_oklch(68%_0.19_252/60%)]"
-            style={{ background: "linear-gradient(135deg, oklch(72% 0.18 250), oklch(58% 0.21 270))" }}
-          >
-            B
-          </span>
-          <span className="font-head text-[13px] font-semibold tracking-[-0.01em] text-text-primary hidden sm:inline">
-            Button Playground
-          </span>
+    <header className="flex items-center justify-between gap-4 px-6 h-16 shrink-0 border-b border-playground-border">
+      <div className="flex items-center gap-3 min-w-0 flex-1">
+        <div className="flex flex-col gap-0.5">
+          <h1 className="font-head text-sm font-semibold text-text-primary">Design Studio Pro</h1>
+          <input
+            value={state.meta.name}
+            onChange={(e) => dispatch({ type: "SET_META_NAME", name: e.target.value })}
+            className="bg-transparent text-xs font-ui text-text-secondary outline-none focus:text-accent min-w-0 truncate max-w-[200px]"
+            placeholder="Preset name..."
+          />
         </div>
-        <span className="text-text-muted">·</span>
-        <input
-          value={state.meta.name}
-          onChange={(e) => dispatch({ type: "SET_META_NAME", name: e.target.value })}
-          className="bg-transparent text-[12px] font-ui text-text-secondary outline-none focus:text-text-primary min-w-0 truncate max-w-[180px]"
-          placeholder="Preset name"
-        />
       </div>
 
       <div className="flex items-center gap-1.5">
@@ -76,17 +67,17 @@ export function Topbar({ onPresetsChange }: { onPresetsChange: () => void }) {
           variant="ghost"
           size="sm"
           onClick={save}
-          className="h-8 px-2 text-[11px] font-ui uppercase tracking-wider text-text-secondary hover:text-accent hover:bg-surface-3"
+          className="h-9 px-3 text-xs font-semibold text-text-secondary hover:text-accent hover:bg-surface-2 rounded-lg transition-colors"
         >
-          <Save className="size-3.5" /> <span className="hidden md:inline">Save</span>
+          <Save className="size-4" />
         </Button>
         <Button
           variant="ghost"
           size="sm"
           onClick={() => copy(css, "CSS copied")}
-          className="h-8 px-2 text-[11px] font-ui uppercase tracking-wider text-text-secondary hover:text-accent hover:bg-surface-3"
+          className="h-9 px-3 text-xs font-semibold text-text-secondary hover:text-accent hover:bg-surface-2 rounded-lg transition-colors"
         >
-          <Copy className="size-3.5" /> <span className="hidden md:inline">Copy CSS</span>
+          <Copy className="size-4" />
         </Button>
 
         <Dialog open={cssOpen} onOpenChange={setCssOpen}>
@@ -94,12 +85,12 @@ export function Topbar({ onPresetsChange }: { onPresetsChange: () => void }) {
             <Button
               variant="ghost"
               size="sm"
-              className="h-8 px-2 text-[11px] font-ui uppercase tracking-wider text-text-secondary hover:text-accent hover:bg-surface-3"
+              className="h-9 px-3 text-xs font-semibold text-text-secondary hover:text-accent hover:bg-surface-2 rounded-lg transition-colors"
             >
-              <FileCode2 className="size-3.5" /> <span className="hidden md:inline">CSS</span>
+              <FileCode2 className="size-4" />
             </Button>
           </DialogTrigger>
-          <DialogContent className="max-w-2xl bg-surface-1 border-border-subtle">
+          <DialogContent className="max-w-2xl bg-surface-1 border-playground-border rounded-2xl">
             <DialogHeader>
               <DialogTitle className="font-head text-text-primary">CSS Export</DialogTitle>
             </DialogHeader>
@@ -120,13 +111,12 @@ export function Topbar({ onPresetsChange }: { onPresetsChange: () => void }) {
             <Button
               variant="ghost"
               size="sm"
-              className="h-8 px-2 text-[11px] font-ui uppercase tracking-wider text-text-secondary hover:text-accent hover:bg-surface-3"
+              className="h-9 px-3 text-xs font-semibold text-text-secondary hover:text-accent hover:bg-surface-2 rounded-lg transition-colors"
             >
-              <Code2 className="size-3.5" />{" "}
-              <span className="hidden md:inline">Component</span>
+              <Code2 className="size-4" />
             </Button>
           </DialogTrigger>
-          <DialogContent className="max-w-2xl bg-surface-1 border-border-subtle">
+          <DialogContent className="max-w-2xl bg-surface-1 border-playground-border rounded-2xl">
             <DialogHeader>
               <DialogTitle className="font-head text-text-primary">TSX Component</DialogTitle>
             </DialogHeader>
@@ -143,9 +133,9 @@ export function Topbar({ onPresetsChange }: { onPresetsChange: () => void }) {
           variant="ghost"
           size="sm"
           onClick={download}
-          className="h-8 px-2 text-[11px] font-ui uppercase tracking-wider text-text-secondary hover:text-accent hover:bg-surface-3"
+          className="h-9 px-3 text-xs font-semibold text-text-secondary hover:text-accent hover:bg-surface-2 rounded-lg transition-colors"
         >
-          <Download className="size-3.5" />
+          <Download className="size-4" />
         </Button>
       </div>
     </header>

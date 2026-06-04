@@ -20,15 +20,17 @@ export function SavedPresets({ refreshKey }: { refreshKey: number }) {
   const presets = [...BUILTIN_PRESETS, ...userPresets];
 
   return (
-    <div className="border-t border-border-subtle bg-surface-1 px-4 py-3 shrink-0">
-      <div className="flex items-center justify-between pb-2">
-        <h3 className="font-head text-[11px] uppercase tracking-[0.18em] text-text-secondary">
-          Saved Presets
+    <div className="rounded-2xl border border-playground-border bg-gradient-to-b from-preset-top to-preset-bottom backdrop-blur-sm overflow-hidden">
+      <div className="flex items-center justify-between px-6 py-4 border-b border-white/5">
+        <h3 className="font-head text-xs font-semibold uppercase tracking-widest text-text-secondary">
+          Presets
         </h3>
-        <span className="text-[10px] font-ui text-text-muted">{userPresets.length}</span>
+        <span className="text-xs font-mono text-text-muted bg-white/5 px-2 py-1 rounded-lg">
+          {userPresets.length}
+        </span>
       </div>
 
-      <div className="flex gap-2 overflow-x-auto pb-1">
+      <div className="flex gap-4 overflow-x-auto p-4">
         {presets.map((p) => {
           const builtin = isBuiltin(p.id);
           return (
@@ -82,25 +84,28 @@ function PresetCard({
   const derived = deriveCss(preset.state);
 
   return (
-    <div className="group relative shrink-0 rounded-md border border-border-subtle bg-surface-2 p-2 hover:border-border-strong transition-colors">
-      <button
-        onClick={onLoad}
-        className="flex flex-col items-center gap-1.5 w-32"
-        title="Click to load"
-      >
-        <div className="relative h-12 w-full grid place-items-center overflow-hidden rounded bg-surface-0">
-          <div style={{ transform: "scale(0.4)" }}>
-            <div
-              style={{
-                ...derived.baseStyle,
-                position: "relative",
-                cursor: "default",
-              }}
-            >
-              <span style={{ position: "relative" }}>{preset.state.base.label}</span>
-            </div>
+    <button
+      onClick={onLoad}
+      className="group relative shrink-0 flex flex-col items-center gap-2.5 w-44 p-4 rounded-xl border border-white/10 bg-gradient-to-b from-white/5 to-white/0 hover:border-white/20 hover:bg-gradient-to-b hover:from-white/10 hover:to-white/0 transition-all duration-200 hover:shadow-lg hover:shadow-accent/10"
+      title="Click to load preset"
+    >
+      {/* Preview area */}
+      <div className="relative h-24 w-full grid place-items-center overflow-hidden rounded-lg bg-gradient-to-br from-black/20 to-black/40 border border-white/5">
+        <div style={{ transform: "scale(0.5)" }}>
+          <div
+            style={{
+              ...derived.baseStyle,
+              position: "relative",
+              cursor: "default",
+            }}
+          >
+            <span style={{ position: "relative" }}>{preset.state.base.label}</span>
           </div>
         </div>
+      </div>
+
+      {/* Label */}
+      <div className="w-full text-center">
         {editing ? (
           <input
             autoFocus
@@ -109,38 +114,42 @@ function PresetCard({
             onBlur={() => onEndEdit(name)}
             onKeyDown={(e) => e.key === "Enter" && onEndEdit(name)}
             onClick={(e) => e.stopPropagation()}
-            className="bg-surface-3 px-1 py-0.5 text-[10px] font-ui text-text-primary w-full text-center rounded outline-none"
+            className="bg-white/10 px-2 py-1 text-xs font-semibold text-text-primary w-full text-center rounded-lg outline-none border border-white/10 focus:border-accent/50"
           />
         ) : (
-          <span
+          <p
             onDoubleClick={(e) => {
               e.stopPropagation();
               onEdit();
             }}
-            className="text-[10px] font-ui text-text-secondary truncate w-full text-center"
+            className="text-xs font-semibold text-text-primary truncate w-full"
             title="Double-click to rename"
           >
             {preset.name}
-          </span>
+          </p>
         )}
-      </button>
+      </div>
+
+      {/* Built-in badge */}
+      {builtin && (
+        <span className="absolute top-2 right-2 px-2 h-5 flex items-center rounded-full bg-accent/20 border border-accent/30 text-[7px] uppercase tracking-wider font-semibold text-accent">
+          Built-in
+        </span>
+      )}
+
+      {/* Delete button */}
       {!builtin && (
         <button
           onClick={(e) => {
             e.stopPropagation();
             onDelete();
           }}
-          className="absolute -top-1.5 -right-1.5 size-5 grid place-items-center rounded-full bg-surface-3 border border-border-subtle text-text-muted opacity-0 group-hover:opacity-100 hover:text-accent transition-opacity"
-          title="Delete"
+          className="absolute top-2 right-2 size-6 grid place-items-center rounded-lg bg-black/40 border border-white/10 text-text-muted opacity-0 group-hover:opacity-100 hover:text-accent transition-all duration-150"
+          title="Delete preset"
         >
-          <X className="size-3" />
+          <X className="size-3.5" />
         </button>
       )}
-      {builtin && (
-        <span className="absolute -top-1.5 -right-1.5 px-1.5 h-4 grid place-items-center rounded-full bg-surface-3 border border-border-subtle text-[8px] uppercase tracking-wider text-text-muted">
-          Built-in
-        </span>
-      )}
-    </div>
+    </button>
   );
 }

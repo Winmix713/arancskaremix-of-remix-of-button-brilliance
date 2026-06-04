@@ -12,31 +12,31 @@ export function ShapeSize() {
   return (
     <CollapsibleSection title="Shape & Size">
       <ControlRow label="Radius" hint={`${b.radius}px`}>
-        <div className="grid grid-cols-4 gap-1">
+        <div className="grid grid-cols-4 gap-2 mb-3">
           {RADIUS_PRESETS.map((r) => (
             <button
               key={r}
               onClick={() => dispatch({ type: "SET_BASE", patch: { radius: r } })}
-              className={
-                "h-7 text-[11px] font-ui rounded border transition-colors " +
-                (b.radius === r
-                  ? "border-accent text-accent bg-surface-3"
-                  : "border-border-subtle text-text-secondary bg-surface-2 hover:bg-surface-3")
-              }
+              className={`
+                h-8 text-xs font-semibold rounded-lg border transition-all
+                ${
+                  b.radius === r
+                    ? "border-accent text-accent bg-accent/10 shadow-md shadow-accent/10"
+                    : "border-white/10 text-text-secondary bg-white/5 hover:border-white/20 hover:bg-white/8"
+                }
+              `}
             >
               {r}
             </button>
           ))}
         </div>
-        <div className="pt-1">
-          <NumericSlider
-            value={b.radius}
-            min={0}
-            max={999}
-            onChange={(radius) => dispatch({ type: "SET_BASE", patch: { radius } })}
-            suffix="px"
-          />
-        </div>
+        <NumericSlider
+          value={b.radius}
+          min={0}
+          max={999}
+          onChange={(radius) => dispatch({ type: "SET_BASE", patch: { radius } })}
+          suffix="px"
+        />
       </ControlRow>
       <ControlRow label="Padding X">
         <NumericSlider

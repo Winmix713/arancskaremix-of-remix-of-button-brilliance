@@ -10,16 +10,6 @@ export function Appearance() {
   const c = state.canvas;
   return (
     <CollapsibleSection title="Appearance">
-      <ControlRow label="Canvas">
-        <SegmentedControl<"light" | "dark">
-          value={c.appearance}
-          onChange={(appearance) => dispatch({ type: "SET_CANVAS", patch: { appearance } })}
-          options={[
-            { value: "light", label: "Light" },
-            { value: "dark", label: "Dark" },
-          ]}
-        />
-      </ControlRow>
       <ControlRow label="Border">
         <SegmentedControl<0 | 1 | 2 | 3>
           value={b.borderWidth}

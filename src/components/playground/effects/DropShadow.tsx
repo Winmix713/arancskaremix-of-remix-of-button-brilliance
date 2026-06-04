@@ -13,7 +13,7 @@ export function DropShadow({ which }: { which: 1 | 2 }) {
     dispatch({ type, patch } as Action);
   const dim = !s.enabled;
   return (
-    <div className="space-y-1">
+    <div className="space-y-3">
       <div className="grid grid-cols-2 gap-3">
         <ControlRow label="X" disabled={dim}>
           <NumericSlider value={s.x} min={-40} max={40} onChange={(x) => set({ x })} suffix="px" />
