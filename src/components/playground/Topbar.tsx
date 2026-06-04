@@ -49,13 +49,16 @@ export function Topbar({ onPresetsChange }: { onPresetsChange: () => void }) {
   };
 
   return (
-    <header className="flex items-center justify-between gap-3 border-b border-border-subtle bg-surface-1 px-4 h-12 shrink-0">
+    <header className="flex items-center justify-between gap-3 border-b border-border-subtle px-4 h-14 shrink-0 bg-[linear-gradient(180deg,oklch(100%_0_0_/_3%),oklch(100%_0_0_/_0%))] backdrop-blur-xl supports-[backdrop-filter]:bg-surface-1/70">
       <div className="flex items-center gap-3 min-w-0">
-        <div className="flex items-center gap-2">
-          <span className="grid place-items-center size-7 rounded-md border border-accent/40 bg-accent/10 text-accent font-head text-sm">
-            ⬡
+        <div className="flex items-center gap-2.5">
+          <span
+            className="grid place-items-center size-7 rounded-[8px] text-white text-[13px] font-semibold shadow-[inset_0_1px_0_oklch(100%_0_0/25%),0_4px_14px_-4px_oklch(68%_0.19_252/60%)]"
+            style={{ background: "linear-gradient(135deg, oklch(72% 0.18 250), oklch(58% 0.21 270))" }}
+          >
+            B
           </span>
-          <span className="font-head text-sm tracking-wide text-text-primary hidden sm:inline">
+          <span className="font-head text-[13px] font-semibold tracking-[-0.01em] text-text-primary hidden sm:inline">
             Button Playground
           </span>
         </div>
