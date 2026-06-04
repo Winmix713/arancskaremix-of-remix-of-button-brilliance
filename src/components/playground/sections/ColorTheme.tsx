@@ -87,6 +87,6 @@ export function ColorTheme() {
           </ControlRow>
         )}
       </div>
-    </section>
+    </CollapsibleSection>
   );
 }
