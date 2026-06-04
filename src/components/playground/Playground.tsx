@@ -13,7 +13,7 @@ export function Playground() {
 
   return (
     <PlaygroundContext.Provider value={{ state, dispatch }}>
-      <div className="flex flex-col h-screen w-full bg-surface-0 text-text-primary font-ui">
+      <div className="flex flex-col h-screen w-full text-text-primary font-ui antialiased">
         <Topbar onPresetsChange={() => setPresetsKey((k) => k + 1)} />
         <div className="flex flex-1 min-h-0 flex-col xl:flex-row">
           <div className="flex-1 min-h-0 min-w-0 flex flex-col">
